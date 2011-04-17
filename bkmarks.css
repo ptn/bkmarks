@@ -1,0 +1,10 @@
+#save-btn {
+	display: inline;
+	border: solid;
+	padding: 5px;
+	background-color: orange;
+}
+
+.quiet {
+	color: #666;
+}
