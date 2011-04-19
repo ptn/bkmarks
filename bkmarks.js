@@ -95,11 +95,17 @@ $(function() {
 		addOne: function(bk) {
 			var view = new BookmarkView({model: bk});
 			this.$("#bk-list").append(view.render().el);
+			this.refreshCount();
 		},
 
 		addAll: function() {
 			Bookmarks.each(this.addOne);
+			this.refreshCount();
 		},
+
+		refreshCount: function() {
+			$("#bk-count").text("Bookmarks: " + Bookmarks.length);
+		}
 	});
 	window.App = new AppView;
 });
