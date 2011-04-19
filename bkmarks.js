@@ -16,14 +16,21 @@ $(function() {
 
 	window.Bookmark = Backbone.Model.extend({
 		initialize: function() {
-			var host = this.get("url").getHostname();
-			var ret = this.set({hostname: host});
-			this.addProtocolToUrl();
+			if (this.isNew()) {
+				this.setHostname();
+				this.addProtocolToUrl();
+			}
+			this.bind('change:url', this.setHostname);
 		},
 
 		addProtocolToUrl: function() {
 			if(!this.get("url").match(/https?:\/\//))
 				this.set({url: "http://" + this.get("url")});
+		},
+
+		setHostname: function() {
+			var host = this.get("url").getHostname();
+			var ret = this.set({hostname: host});
 		},
 
 		/*validate: function(attrs) {
