@@ -1,8 +1,15 @@
+body {
+	font-family: Verdana, Arial, Helvetica;
+	margin: 0;
+	color: #333;
+}
+
 #save-btn {
 	display: inline;
-	border: solid;
+	border: 2px solid;
 	padding: 5px;
-	background-color: orange;
+	background-color: #de8848;
+	color: black;
 }
 
 #save-btn:hover {
@@ -10,7 +17,7 @@
 }
 
 .quiet {
-	color: #666;
+	color: #999;
 }
 
 #bks {
@@ -18,8 +25,38 @@
 }
 
 .error {
-	display: inline;
+	margin-bottom: 8px;
+	text-align: center;
+	width: 352px;
 	padding: 5px;
-	background-color: #ff7373;
+	background-color: #ff9696;
 	color: #a60000;
+}
+
+#header {
+	background-color: #0c756a;
+	border-bottom: 3px solid #bc5b13;
+	color: white;
+	padding: 5px 25px;
+	font-weight: bold;
+	font-size: 4em;
+}
+
+#bkmarks-app {
+	padding: 5px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 450px;
+	background-color:
+}
+
+#footer {
+	border-top: 1px solid #e8958c;
+	border-bottom: 1px solid #e8958c;
+	background-color: #f3d7c2;
+	color: #666;
+	margin-top: 100px;
+	text-align: center;
+	list-style-type: square;
 }
