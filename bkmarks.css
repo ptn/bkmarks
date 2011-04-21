@@ -5,6 +5,21 @@
 	background-color: orange;
 }
 
+#save-btn:hover {
+	cursor: pointer;
+}
+
 .quiet {
 	color: #666;
+}
+
+#bks {
+	margin-top: 28px;
+}
+
+.error {
+	display: inline;
+	padding: 5px;
+	background-color: #ff7373;
+	color: #a60000;
 }

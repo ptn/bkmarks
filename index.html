@@ -2,11 +2,12 @@
 	<head>
 		<title>Bookmarks</title>
 		<link href="bkmarks.css" media="all" type="text/css" rel="stylesheet" />
-		<script src="../json2.js"></script>
-		<script src="../jquery-1.5.2.min.js"></script>
-		<script src="../underscore-1.1.5.js"></script>
-		<script src="../backbone-0.3.3.js"></script>
-		<script src="../backbone-localstorage.js"></script>
+		<script src="../../js/json2.js"></script>
+		<script src="../../js/jquery-1.5.2.min.js"></script>
+		<script src="../../js/underscore-1.1.5.js"></script>
+		<!-- I'm using a patched version of backbone's Collection.create -->
+		<script src="../../js/backbone-0.3.3.js"></script>
+		<script src="../../js/backbone-localstorage.js"></script>
 		<script src="bkmarks.js"></script>
 	</head>
 
@@ -19,10 +20,11 @@
 				<input id="new_title" name="new_title" type="text" placeholder="Title"/>:
 				<input id="new_url" name="new_url" type="text" placeholder="URL"/>
 				<div id="save-btn">Save</div>
+				<div id="error"></div>
 			</div>
 
 			<div id="bks">
-				<span id="bk-count" class="quiet"></span><br />
+				<h3>Your bookmarks <span id="bk-count" class="quiet"></span><br /></h3>
 				<ul id="bk-list"></ul>
 			</div>
 		</div>

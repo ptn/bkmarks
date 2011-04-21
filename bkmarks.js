@@ -5,7 +5,7 @@ $(function() {
 		if (url_match) {
 			var hostname = url_match[2].toString();
 			var subdomain_match = hostname.match(/^(.+)\.((.+)\.(.+))$/);
-			if(subdomain_match) {
+			if (subdomain_match) {
 				hostname = subdomain_match[2];
 			}
 			return hostname;
@@ -16,7 +16,7 @@ $(function() {
 
 	window.Bookmark = Backbone.Model.extend({
 		initialize: function() {
-			if (this.isNew()) {
+			if (this.isNew() && this.get("url")) {
 				this.setHostname();
 				this.addProtocolToUrl();
 			}
@@ -24,7 +24,7 @@ $(function() {
 		},
 
 		addProtocolToUrl: function() {
-			if(!this.get("url").match(/https?:\/\//))
+			if (!this.get("url").match(/https?:\/\//))
 				this.set({url: "http://" + this.get("url")});
 		},
 
@@ -33,12 +33,14 @@ $(function() {
 			var ret = this.set({hostname: host});
 		},
 
-		/*validate: function(attrs) {
-			if(attrs.title == "" || attrs.title == null)
+		validate: function(attrs) {
+			if (!(typeof attrs.title === 'undefined') && attrs.title == "") {
 				return "Title can't be blank";
-			if(attrs.url == "" || attrs.url == null)
+			}
+			if (!(typeof attrs.url === 'undefined') && attrs.url == "" ) {
 				return "Url can't be blank";
-		}*/
+			}
+		  }
 	});
 
 
@@ -83,11 +85,18 @@ $(function() {
 			Bookmarks.fetch();
 		},
 
+		showError: function(model, error) {
+			$("#error").text(error);
+			$("#error").addClass("error");
+			$("#error").show();
+			$("#error").fadeOut(5000);
+		},
+
 		create: function() {
 			Bookmarks.create({
 				title: this.title.val(),
 				url: this.url.val(),
-			});
+			}, {error: this.showError});
 			this.title.val('');
 			this.url.val('');
 		},
@@ -104,7 +113,7 @@ $(function() {
 		},
 
 		refreshCount: function() {
-			$("#bk-count").text("Bookmarks: " + Bookmarks.length);
+			$("#bk-count").text("(" + Bookmarks.length + ")");
 		}
 	});
 	window.App = new AppView;
