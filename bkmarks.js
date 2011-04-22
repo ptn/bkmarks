@@ -56,8 +56,14 @@ $(function() {
 
 		template: _.template($("#bk-template").html()),
 
+		events: {
+			"mouseover": "showDestroy",
+			"mouseout": "hideDestroy",
+			"click .destroy": "destroy"
+		},
+
 		initialize: function() {
-			_.bindAll(this, 'render');
+			_.bindAll(this, 'render', 'showDestroy', 'hideDestroy', 'destroy');
 			this.model.bind('change', this.render);
 			this.model.view = this;
 		},
@@ -66,6 +72,19 @@ $(function() {
 			$(this.el).html(this.template(this.model.toJSON()));
 			return this;
 		},
+
+		showDestroy: function() {
+			this.$(".destroy").show();
+		},
+
+		hideDestroy: function() {
+			this.$(".destroy").hide();
+		},
+
+		destroy: function() {
+			this.model.destroy();
+			this.remove();
+		}
 	});
 
 
@@ -73,7 +92,7 @@ $(function() {
 		el: $("#bkmarks-app"),
 
 		events: {
-			"click #save-btn": "create"
+			"click #save-btn": "create",
 		},
 
 		initialize: function() {
@@ -82,6 +101,7 @@ $(function() {
 			this.url = this.$("#new_url");
 			Bookmarks.bind('add', this.addOne);
 			Bookmarks.bind('refresh', this.addAll);
+			Bookmarks.bind('remove', this.refreshCount);
 			Bookmarks.fetch();
 		},
 
@@ -114,7 +134,8 @@ $(function() {
 
 		refreshCount: function() {
 			$("#bk-count").text("(" + Bookmarks.length + ")");
-		}
+		},
+
 	});
 	window.App = new AppView;
 });

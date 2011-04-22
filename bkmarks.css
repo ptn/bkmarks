@@ -24,6 +24,16 @@ body {
 	margin-top: 28px;
 }
 
+.bk {
+	line-height: 2em;
+	padding: 5px;
+	width: 300px;
+}
+
+.bk:hover {
+	background-color: #fcf0e7;
+}
+
 .error {
 	margin-bottom: 8px;
 	text-align: center;
@@ -59,4 +69,10 @@ body {
 	margin-top: 100px;
 	text-align: center;
 	list-style-type: square;
+}
+
+.destroy {
+	display: none;
+	float: right;
+	cursor: pointer;
 }
