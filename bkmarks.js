@@ -94,6 +94,8 @@ $(function() {
 
 		events: {
 			"click #save-btn": "create",
+            "keypress #new_title": "createOnEnter",
+            "keypress #new_url": "createOnEnter",
 		},
 
 		initialize: function() {
@@ -112,6 +114,11 @@ $(function() {
 			$("#error").show();
 			$("#error").fadeOut(5000);
 		},
+
+        createOnEnter: function(e) {
+            if (e.keyCode != 13) return;
+            this.create();
+        },
 
 		create: function() {
 			Bookmarks.create({
