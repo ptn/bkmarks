@@ -58,13 +58,18 @@ $(function() {
         template: _.template($("#bk-template").html()),
 
         events: {
-            "mouseover": "showDestroy",
-            "mouseout": "hideDestroy",
-            "click .destroy": "destroy"
+            "mouseover": "showControls",
+            "mouseout": "hideControls",
+            "click .destroy-img": "destroy",
+            "click .edit-img": "startEdit",
+            "click .edit-btn": "saveEdit",
+            "click .cancel": "stopEdit",
+            "keypress .edit_title": "editOnEnter",
+            "keypress .edit_url": "editOnEnter",
         },
 
         initialize: function() {
-            _.bindAll(this, 'render', 'showDestroy', 'hideDestroy', 'destroy');
+            _.bindAll(this, 'render', 'showControls', 'hideControls', 'destroy', 'showError');
             this.model.bind('change', this.render);
             this.model.view = this;
         },
@@ -74,18 +79,48 @@ $(function() {
             return this;
         },
 
-        showDestroy: function() {
-            this.$(".destroy").show();
+        showControls: function() {
+            this.$(".controls").show();
         },
 
-        hideDestroy: function() {
-            this.$(".destroy").hide();
+        hideControls: function() {
+            this.$(".controls").hide();
         },
 
         destroy: function() {
             this.model.destroy();
             this.remove();
-        }
+        },
+
+        startEdit: function() {
+          this.editTitle = this.$(".edit_title");
+          this.editUrl = this.$(".edit_url");
+          $(this.el).addClass("editing");
+          this.editTitle.val(this.model.get("title"));
+          this.editUrl.val(this.model.get("url"));
+          this.editTitle.focus();
+        },
+
+        saveEdit: function() {
+          this.model.save({
+            title: this.editTitle.val(),
+            url: this.editUrl.val(),
+          }, { error: this.showError });
+          $(this.el).removeClass("editing");
+        },
+
+        showError: function(model, error) {
+          alert(error);
+        },
+
+        stopEdit: function() {
+          $(this.el).removeClass("editing");
+        },
+
+        editOnEnter: function(e) {
+          if (e.keyCode != 13) return;
+          this.saveEdit();
+        },
     });
 
 

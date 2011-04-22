@@ -40,10 +40,24 @@
 		</div>
 
 		<script type="text/template" id="bk-template">
-			<div class="bk">
-				<a href="<%= url %>"><%= title %></a><span class="quiet"> (<%= hostname %>)</span>
-				<span class="destroy"><img src="img/destroy.png"/></span>
-			</div>
+      <div class="bk">
+
+        <div class="saved">
+          <a href="<%= url %>"><%= title %></a><span class="quiet"> (<%= hostname %>)</span>
+          <div class="controls">
+            <span class="edit-img"><img src="img/edit.png"/></span>
+            <span class="destroy-img"><img src="img/destroy.png"/></span>
+          </div>
+        </div>
+
+        <div class="edit">
+          <input class="edit_title" name="edit_title" type="text" />:
+          <input class="edit_url" name="edit_url" type="text" />
+          <div class="edit-btn">Save</div>
+          <a href="#" class="cancel quiet">Cancel</a>
+        </div>
+
+      </div>
 		</script>
 
 	</body>

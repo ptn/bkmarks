@@ -4,7 +4,7 @@ body {
 	color: #333;
 }
 
-#save-btn {
+#save-btn, .edit-btn {
 	display: inline;
 	border: 2px solid;
 	padding: 5px;
@@ -12,7 +12,7 @@ body {
 	color: black;
 }
 
-#save-btn:hover {
+#save-btn:hover, .edit-btn:hover {
 	cursor: pointer;
 }
 
@@ -31,6 +31,22 @@ body {
 
 .bk:hover {
 	background-color: #fcf0e7;
+}
+
+.bk .edit {
+  display: none;
+}
+
+.editing .saved {
+  display: none;
+}
+
+.editing .edit {
+  display: block;
+}
+
+.cancel {
+  font-size: 0.8em;
 }
 
 .error {
@@ -56,7 +72,7 @@ body {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 450px;
+	width: 500px;
 }
 
 #footer {
@@ -69,16 +85,17 @@ body {
 	list-style-type: square;
 }
 
-.destroy {
+.controls {
 	display: none;
 	float: right;
 	cursor: pointer;
 }
 
-ul {
-	list-style-type: none;
+.controls span {
+	padding: 5px;
 }
 
-li {
-	width: 300px;
+ul {
+	list-style-type: none;
+  padding-left: 0;
 }
