@@ -177,13 +177,14 @@ $(function() {
     },
 
     create: function() {
-      tags = this.parseTags(this.tags.val());
+      var tags = this.parseTags(this.tags.val());
       Bookmarks.create({
         title: this.title.val(),
         url: this.url.val(),
         tags: tags,
       }, {error: this.showError});
       this.clear();
+      this.hideNewBkForm();
     },
 
     addOne: function(bk) {
@@ -203,6 +204,7 @@ $(function() {
 
     showNewBkForm: function() {
       this.$("#create-bk").show("slow");
+      this.$("#new_title").focus();
     },
 
     hideNewBkForm: function() {
