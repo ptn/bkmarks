@@ -27,7 +27,6 @@ body {
 .bk {
 	line-height: 2em;
 	padding: 5px;
-	width: 300px;
 }
 
 .bk:hover {
@@ -75,4 +74,12 @@ body {
 	display: none;
 	float: right;
 	cursor: pointer;
+}
+
+ul {
+	list-style-type: none;
+}
+
+li {
+	width: 300px;
 }

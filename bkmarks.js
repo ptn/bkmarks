@@ -53,7 +53,7 @@ $(function() {
 
 
 	window.BookmarkView = Backbone.View.extend({
-		tagname: "li",
+		tagName: "li",
 
 		template: _.template($("#bk-template").html()),
 
