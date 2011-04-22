@@ -57,11 +57,13 @@
       <div class="bk">
 
         <div class="saved">
-          <a href="<%= url %>"><%= title %></a><span class="quiet"> (<%= hostname %>)</span>
           <div class="controls">
             <span class="edit-img"><img src="img/edit.png"/></span>
             <span class="destroy-img"><img src="img/destroy.png"/></span>
           </div>
+
+          <a href="<%= url %>"><%= title %></a><span class="quiet"> (<%= hostname %>)</span>
+          <div class="tags"><%= tags %></div>
         </div>
 
         <div class="edit">

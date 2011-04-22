@@ -32,8 +32,17 @@ body {
   color: #999;
 }
 
+#bk-list {
+  margin-top: 40px;
+}
+
 #bks h1 {
   margin-bottom: 7px;
+}
+
+.tags {
+  font-size: 0.8em;
+  line-height: 0.8em;
 }
 
 .bk {
@@ -111,6 +120,10 @@ body {
 ul {
   list-style-type: none;
   padding-left: 0;
+}
+
+li {
+  margin-bottom: 20px;
 }
 
 #create-bk {

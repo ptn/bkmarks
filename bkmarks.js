@@ -33,7 +33,7 @@ $(function() {
 
     addProtocolToUrl: function() {
       if (!this.get("url").match(/https?:\/\//)) {
-          this.set({url: "http://" + this.get("url")});
+        this.set({url: "http://" + this.get("url")});
       }
     },
 
@@ -83,7 +83,9 @@ $(function() {
     },
 
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
+      var json = this.model.toJSON();
+      json.tags = this.model.get("tags").join(", ");
+      $(this.el).html(this.template(json));
       return this;
     },
 
@@ -167,7 +169,7 @@ $(function() {
     },
 
     parseTags: function(tags_input) {
-      return tags_input;
+      return tags_input.split(/, */);
     },
 
     clear: function() {
