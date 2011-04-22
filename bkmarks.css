@@ -4,14 +4,26 @@ body {
   color: #333;
 }
 
-#save-btn, .edit-btn {
+#save-btn {
+  border: 2px solid;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 5px;
+  background-color: #de8848;
+  color: black;
+  text-align: center;
+  width: 57%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-btn {
   display: inline;
   border: 2px solid;
   padding: 5px;
   background-color: #de8848;
   color: black;
 }
-
 #save-btn:hover, .edit-btn:hover {
   cursor: pointer;
 }
@@ -20,8 +32,8 @@ body {
   color: #999;
 }
 
-#bks {
-  margin-top: 28px;
+#bks h1 {
+  margin-bottom: 7px;
 }
 
 .bk {
@@ -52,7 +64,6 @@ body {
 .error {
   margin-bottom: 8px;
   text-align: center;
-  width: 352px;
   padding: 5px;
   background-color: #ff9696;
   color: #a60000;
@@ -68,11 +79,14 @@ body {
 }
 
 #bkmarks-app {
+  text-align: center;
   padding: 5px;
   margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   width: 500px;
+  background-color: white;
 }
 
 #footer {
@@ -80,7 +94,6 @@ body {
   border-bottom: 1px solid #e8958c;
   background-color: #f3d7c2;
   color: #666;
-  margin-top: 100px;
   text-align: center;
   list-style-type: square;
 }
@@ -98,4 +111,8 @@ body {
 ul {
   list-style-type: none;
   padding-left: 0;
+}
+
+#create-bk {
+  display: none;
 }

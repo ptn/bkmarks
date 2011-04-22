@@ -16,19 +16,33 @@
       BKMarks
     </div>
 
-    <div id="bkmarks-app">
-      <h1>Save a new bookmark:</h1>
+    <div style="background-color: #f3f3f3;">
+      <div id="bkmarks-app">
 
-      <div id="create-bk">
-        <div id="error"></div>
-        <input id="new_title" name="new_title" type="text" placeholder="Title"/>:
-        <input id="new_url" name="new_url" type="text" placeholder="URL"/>
-        <div id="save-btn">Save</div>
-      </div>
+        <div id="bks">
+          <h1>Your bookmarks:<br /></h1>
 
-      <div id="bks">
-        <h3>Your bookmarks <span id="bk-count" class="quiet"></span>:<br /></h3>
-        <ul id="bk-list"></ul>
+          <span id="bk-count" class="quiet"></span>
+          <a href="#" class="quiet" id="show-create-bk">(New bookmark)</a>
+
+          <div id="create-bk">
+            <hr />
+
+            <h3>New bookmark:</h3>
+
+            <div id="error"></div>
+            <input id="new_title" name="new_title" type="text" placeholder="Title" size="35" /><br />
+            <input id="new_url" name="new_url" type="text" placeholder="URL" size="35" /><br />
+            <input id="new_tags" name="new_tags" type="text" placeholder="Tags" width="100%" size="35"/><br />
+            <div id="save-btn">Save</div>
+            <a href="#" class="quiet" id="hide-create-bk">Cancel</a>
+
+            <hr />
+
+          </div>
+
+          <ul id="bk-list"></ul>
+        </div>
       </div>
     </div>
 

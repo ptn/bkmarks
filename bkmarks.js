@@ -13,6 +13,13 @@ $(function() {
       return "";
   };
 
+  window.Tag = Backbone.Model.extend();
+
+  window.TagList = Backbone.Collection.extend({
+    model: Tag,
+    localStorage: new Store("tags"),
+  });
+
 
   window.Bookmark = Backbone.Model.extend({
     initialize: function() {
@@ -25,8 +32,9 @@ $(function() {
     },
 
     addProtocolToUrl: function() {
-      if (!this.get("url").match(/https?:\/\//))
+      if (!this.get("url").match(/https?:\/\//)) {
           this.set({url: "http://" + this.get("url")});
+      }
     },
 
         setHostname: function() {
@@ -131,12 +139,15 @@ $(function() {
       "click #save-btn": "create",
       "keypress #new_title": "createOnEnter",
       "keypress #new_url": "createOnEnter",
+      "click #show-create-bk": "showNewBkForm",
+      "click #hide-create-bk": "hideNewBkForm",
     },
 
     initialize: function() {
-      _.bindAll(this, 'render', 'addOne', 'addAll');
+      _.bindAll(this, 'render', 'addOne', 'addAll', 'clear');
       this.title = this.$("#new_title");
       this.url = this.$("#new_url");
+      this.tags = this.$("#new_tags");
       Bookmarks.bind('add', this.addOne);
       Bookmarks.bind('refresh', this.addAll);
       Bookmarks.bind('remove', this.refreshCount);
@@ -155,13 +166,24 @@ $(function() {
       this.create();
     },
 
+    parseTags: function(tags_input) {
+      return tags_input;
+    },
+
+    clear: function() {
+      this.title.val('');
+      this.url.val('');
+      this.tags.val('');
+    },
+
     create: function() {
+      tags = this.parseTags(this.tags.val());
       Bookmarks.create({
         title: this.title.val(),
         url: this.url.val(),
+        tags: tags,
       }, {error: this.showError});
-      this.title.val('');
-      this.url.val('');
+      this.clear();
     },
 
     addOne: function(bk) {
@@ -176,7 +198,16 @@ $(function() {
     },
 
     refreshCount: function() {
-      $("#bk-count").text("(" + Bookmarks.length + ")");
+      $("#bk-count").text("Total: " + Bookmarks.length);
+    },
+
+    showNewBkForm: function() {
+      this.$("#create-bk").show("slow");
+    },
+
+    hideNewBkForm: function() {
+      this.clear();
+      this.$("#create-bk").hide("slow");
     },
 
   });
