@@ -21,6 +21,7 @@ $(function() {
 				this.addProtocolToUrl();
 			}
 			this.bind('change:url', this.setHostname);
+			this.bind('change:url', this.addProtocolToUrl);
 		},
 
 		addProtocolToUrl: function() {
