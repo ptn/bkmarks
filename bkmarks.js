@@ -105,18 +105,23 @@ $(function() {
     startEdit: function() {
       this.editTitle = this.$(".edit_title");
       this.editUrl = this.$(".edit_url");
+      this.editTags = this.$(".edit_tags");
       $(this.el).addClass("editing");
       this.editTitle.val(this.model.get("title"));
       this.editUrl.val(this.model.get("url"));
+      this.editTags.val(this.model.get("tags"));
       this.editTitle.focus();
     },
 
     saveEdit: function() {
-      this.model.save({
+      var tags = App.parseTags(this.editTags.val());
+      var res = this.model.save({
         title: this.editTitle.val(),
         url: this.editUrl.val(),
+        tags: tags,
       }, { error: this.showError });
-      $(this.el).removeClass("editing");
+      if (res)
+        $(this.el).removeClass("editing");
     },
 
     showError: function(model, error) {

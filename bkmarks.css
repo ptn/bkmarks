@@ -4,7 +4,7 @@ body {
   color: #333;
 }
 
-#save-btn {
+#save-btn, .edit-btn {
   border: 2px solid;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -18,12 +18,9 @@ body {
 }
 
 .edit-btn {
-  display: inline;
-  border: 2px solid;
-  padding: 5px;
-  background-color: #de8848;
-  color: black;
+  line-height: 1em;
 }
+
 #save-btn:hover, .edit-btn:hover {
   cursor: pointer;
 }
@@ -56,6 +53,8 @@ body {
 
 .bk .edit {
   display: none;
+  background-color: #fcf0e7;
+  padding: 8px;
 }
 
 .editing .saved {
@@ -64,10 +63,6 @@ body {
 
 .editing .edit {
   display: block;
-}
-
-.cancel {
-  font-size: 0.8em;
 }
 
 .error {
@@ -131,6 +126,9 @@ li {
 
 #create-bk {
   display: none;
+  background-color: #fcf0e7;
+  margin: 8px;
+  padding: 8px;
 }
 
 #create-bk input {

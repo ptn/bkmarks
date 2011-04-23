@@ -26,8 +26,6 @@
           <a href="#" class="quiet" id="show-create-bk">(New bookmark)</a>
 
           <div id="create-bk">
-            <hr />
-
             <h3>New bookmark:</h3>
 
             <div id="error"></div>
@@ -39,8 +37,6 @@
             <input id="new_tags" name="new_tags" type="text" width="100%" size="35"/><br />
             <div id="save-btn">Save</div>
             <a href="#" class="quiet" id="hide-create-bk">Cancel</a>
-
-            <hr />
 
           </div>
 
@@ -70,8 +66,15 @@
         </div>
 
         <div class="edit">
-          <input class="edit_title" name="edit_title" type="text" />:
-          <input class="edit_url" name="edit_url" type="text" />
+
+          <h3>Edit bookmark:</h3>
+
+          <label for="edit_title">Title</label><br />
+          <input class="edit_title" name="edit_title" type="text" widht="100%" size="35" /><br />
+          <label for="edit_url">URL</label><br />
+          <input class="edit_url" name="edit_url" type="text" widht="100%" size="35" /><br />
+          <label for="edit_tags">Tags</label><br />
+          <input class="edit_tags" name="new_tags" type="text" width="100%" size="35"/><br />
           <div class="edit-btn">Save</div>
           <a href="#" class="cancel quiet">Cancel</a>
         </div>
