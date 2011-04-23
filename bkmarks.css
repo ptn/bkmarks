@@ -29,8 +29,16 @@ body {
   color: #999;
 }
 
-#bk-list {
+#search {
   margin-top: 40px;
+}
+
+#search input {
+  /*background: url(img/search.png) 5px 50% no-repeat white;*/
+}
+
+#clear-search {
+  display: none;
 }
 
 #bks h1 {

@@ -23,12 +23,22 @@ $(function() {
 
   window.Bookmark = Backbone.Model.extend({
     initialize: function() {
+      _.bindAll(this, 'hasTag', 'hasTags');
       if (this.isNew() && this.get("url")) {
         this.setHostname();
         this.addProtocolToUrl();
       }
       this.bind('change:url', this.setHostname);
       this.bind('change:url', this.addProtocolToUrl);
+    },
+
+    hasTag: function(tag) {
+      return _.include(this.get("tags"), tag);
+    },
+
+    // Optimize.
+    hasTags: function(tags) {
+      return _.all(tags, this.hasTag);
     },
 
     addProtocolToUrl: function() {
@@ -58,6 +68,8 @@ $(function() {
     localStorage: new Store("bks")
   });
   window.Bookmarks = new BookmarkList;
+  // Bookmarks that don't match the search terms.
+  window.NotResults = new BookmarkList;
 
 
   window.BookmarkView = Backbone.View.extend({
@@ -141,6 +153,14 @@ $(function() {
     remove: function() {
       $(this.el).fadeOut('slow', function() { $(this.el).remove(); });
     },
+
+    hide: function() {
+      $(this.el).hide('slow');
+    },
+
+    show: function() {
+      $(this.el).show('slow');
+    },
   });
 
 
@@ -154,6 +174,8 @@ $(function() {
       "keypress #new_tags": "createOnEnter",
       "click #show-create-bk": "showNewBkForm",
       "click #hide-create-bk": "hideNewBkForm",
+      "keypress #search": "search",
+      "click #clear-search": "clearSearch",
     },
 
     initialize: function() {
@@ -165,6 +187,32 @@ $(function() {
       Bookmarks.bind('refresh', this.addAll);
       Bookmarks.bind('remove', this.refreshCount);
       Bookmarks.fetch();
+      NotResults.bind('refresh', this.hideNotMatching);
+    },
+
+    showNotMatching: function() {
+      NotResults.each(function(bk) { bk.view.show(); });
+    },
+
+    hideNotMatching: function() {
+      NotResults.each(function(bk) { bk.view.hide(); });
+    },
+
+    clearSearch: function() {
+      this.$("#search input").val('');
+      this.showNotMatching();
+      NotResults.refresh([]);
+      this.refreshCount();
+      this.$("#clear-search").hide();
+    },
+
+    search: function(e) {
+      if (e.keyCode != 13) return;
+      var tags = this.parseTags(this.$("#search input").val());
+      var not_results = Bookmarks.reject(function(bk) { return bk.hasTags(tags); });
+      NotResults.refresh(not_results);
+      this.refreshCount();
+      this.$("#clear-search").show();
     },
 
     showError: function(model, error) {
@@ -180,7 +228,7 @@ $(function() {
     },
 
     parseTags: function(tags_input) {
-      return tags_input.split(/, */);
+      return tags_input.split(/,? +/);
     },
 
     clear: function() {
@@ -210,11 +258,11 @@ $(function() {
 
     addAll: function() {
       Bookmarks.each(this.addOne);
-      this.refreshCount();
     },
 
     refreshCount: function() {
-      $("#bk-count").text("Total: " + Bookmarks.length);
+      var showing = Bookmarks.length - NotResults.length;
+      $("#bk-count").text("Showing " + showing + " / " + Bookmarks.length);
     },
 
     showNewBkForm: function() {
