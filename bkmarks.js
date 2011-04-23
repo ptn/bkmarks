@@ -184,13 +184,15 @@ $(function() {
 
     create: function() {
       var tags = this.parseTags(this.tags.val());
-      Bookmarks.create({
+      var res = Bookmarks.create({
         title: this.title.val(),
         url: this.url.val(),
         tags: tags,
       }, {error: this.showError});
-      this.clear();
-      this.hideNewBkForm();
+      if (res) {
+        this.clear();
+        this.hideNewBkForm();
+      }
     },
 
     addOne: function(bk) {

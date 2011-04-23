@@ -76,6 +76,9 @@ body {
   padding: 5px;
   background-color: #ff9696;
   color: #a60000;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #header {
@@ -128,4 +131,8 @@ li {
 
 #create-bk {
   display: none;
+}
+
+#create-bk input {
+  margin-bottom: 15px;
 }
