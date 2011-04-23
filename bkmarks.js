@@ -41,6 +41,10 @@ $(function() {
       return _.all(tags, this.hasTag);
     },
 
+    tagsAsString: function() {
+      return this.get("tags").join(", ");
+    },
+
     addProtocolToUrl: function() {
       if (!this.get("url").match(/https?:\/\//)) {
         this.set({url: "http://" + this.get("url")});
@@ -97,7 +101,7 @@ $(function() {
 
     render: function() {
       var json = this.model.toJSON();
-      json.tags = this.model.get("tags").join(", ");
+      json.tags = this.model.tagsAsString();
       $(this.el).html(this.template(json));
       return this;
     },
@@ -122,7 +126,7 @@ $(function() {
       $(this.el).addClass("editing");
       this.editTitle.val(this.model.get("title"));
       this.editUrl.val(this.model.get("url"));
-      this.editTags.val(this.model.get("tags"));
+      this.editTags.val(this.model.tagsAsString());
       this.editTitle.focus();
     },
 
@@ -228,7 +232,7 @@ $(function() {
     },
 
     parseTags: function(tags_input) {
-      return tags_input.split(/,? +/);
+      return tags_input.split(/,?\s\s*/);
     },
 
     clear: function() {
