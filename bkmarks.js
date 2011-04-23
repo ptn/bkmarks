@@ -214,8 +214,8 @@ $(function() {
           return true;
         }
       });
-      App.refreshCount();
       NotResults.refresh(not_results);
+      App.refreshCount();
       this.$("#clear-search").show();
     },
 
