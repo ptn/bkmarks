@@ -232,7 +232,7 @@ $(function() {
     },
 
     parseTags: function(tags_input) {
-      return tags_input.split(/,?\s\s*/);
+      return _.uniq(tags_input.split(/,?\s\s*/));
     },
 
     clear: function() {
