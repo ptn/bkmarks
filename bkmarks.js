@@ -13,6 +13,12 @@ $(function() {
       return "";
   };
 
+  window.Util = {
+    parseTags: function(tags_input) {
+      return _.uniq(tags_input.split(/,?\s+/));
+    },
+  };
+
   window.Tag = Backbone.Model.extend();
 
   window.TagList = Backbone.Collection.extend({
@@ -131,7 +137,7 @@ $(function() {
     },
 
     saveEdit: function() {
-      var tags = App.parseTags(this.editTags.val());
+      var tags = Util.parseTags(this.editTags.val());
       var res = this.model.save({
         title: this.editTitle.val(),
         url: this.editUrl.val(),
@@ -199,7 +205,7 @@ $(function() {
 
     search: function(e) {
       if (e.keyCode != 13) return;
-      var tags = App.parseTags(this.$("input").val());
+      var tags = Util.parseTags(this.$("input").val());
       var not_results = Bookmarks.reject(function(bk) { return bk.hasTags(tags); });
       NotResults.refresh(not_results);
       App.refreshCount();
@@ -243,10 +249,6 @@ $(function() {
       this.create();
     },
 
-    parseTags: function(tags_input) {
-      return _.uniq(tags_input.split(/,?\s+/));
-    },
-
     clear: function() {
       this.title.val('');
       this.url.val('');
@@ -254,7 +256,7 @@ $(function() {
     },
 
     create: function() {
-      var tags = this.parseTags(this.tags.val());
+      var tags = Util.parseTags(this.tags.val());
       var res = Bookmarks.create({
         title: this.title.val(),
         url: this.url.val(),
