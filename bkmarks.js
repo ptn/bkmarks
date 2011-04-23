@@ -17,6 +17,14 @@ $(function() {
     parseTags: function(tags_input) {
       return _.uniq(tags_input.split(/,?\s+/));
     },
+
+    delay: (function() {
+      var timer = 0;
+      return function(callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+      };
+    })(),
   };
 
   window.Tag = Backbone.Model.extend();
@@ -178,38 +186,54 @@ $(function() {
     el: $("#search"),
 
     events: {
-      "keypress": "search",
+      "keypress": "searchOnEnter",
+      "keyup": "delayedSearch",
       "click #clear-search": "clearSearch",
     },
 
     initialize: function() {
-      _.bindAll(this, 'render');
-      NotResults.bind('refresh', this.hideNotMatching);
-    },
-
-    showNotMatching: function() {
-      NotResults.each(function(bk) { bk.view.show(); });
-    },
-
-    hideNotMatching: function() {
-      NotResults.each(function(bk) { bk.view.hide(); });
+      _.bindAll(this, 'render', 'search', 'clearSearch');
     },
 
     clearSearch: function() {
       this.$("input").val('');
-      this.showNotMatching();
+      NotResults.each(function(bk) { bk.view.show(); });
       NotResults.refresh([]);
       App.refreshCount();
       this.$("#clear-search").hide();
     },
 
-    search: function(e) {
-      if (e.keyCode != 13) return;
+    search: function() {
       var tags = Util.parseTags(this.$("input").val());
-      var not_results = Bookmarks.reject(function(bk) { return bk.hasTags(tags); });
-      NotResults.refresh(not_results);
+      var not_results = Bookmarks.select(function(bk) {
+        if (bk.hasTags(tags)) {
+          bk.view.show();
+          return false;
+        } else {
+          bk.view.hide();
+          return true;
+        }
+      });
       App.refreshCount();
+      NotResults.refresh(not_results);
       this.$("#clear-search").show();
+    },
+
+    searchOnEnter: function(e) {
+      if (e.keyCode != 13) return;
+      this.search();
+    },
+
+    delayedSearch: function(e) {
+      var input = this.$("input");
+      var search = this.search;
+      var clearSearch = this.clearSearch;
+      Util.delay(function() {
+        if (input.val())
+          search();
+        else
+          clearSearch();
+      }, 500);
     },
   });
   window.Search = new SearchView;
