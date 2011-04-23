@@ -168,29 +168,16 @@ $(function() {
   });
 
 
-  window.AppView = Backbone.View.extend({
-    el: $("#bkmarks-app"),
+  window.SearchView = Backbone.View.extend({
+    el: $("#search"),
 
     events: {
-      "click #save-btn": "create",
-      "keypress #new_title": "createOnEnter",
-      "keypress #new_url": "createOnEnter",
-      "keypress #new_tags": "createOnEnter",
-      "click #show-create-bk": "showNewBkForm",
-      "click #hide-create-bk": "hideNewBkForm",
-      "keypress #search": "search",
+      "keypress": "search",
       "click #clear-search": "clearSearch",
     },
 
     initialize: function() {
-      _.bindAll(this, 'render', 'addOne', 'addAll', 'clear');
-      this.title = this.$("#new_title");
-      this.url = this.$("#new_url");
-      this.tags = this.$("#new_tags");
-      Bookmarks.bind('add', this.addOne);
-      Bookmarks.bind('refresh', this.addAll);
-      Bookmarks.bind('remove', this.refreshCount);
-      Bookmarks.fetch();
+      _.bindAll(this, 'render');
       NotResults.bind('refresh', this.hideNotMatching);
     },
 
@@ -203,20 +190,45 @@ $(function() {
     },
 
     clearSearch: function() {
-      this.$("#search input").val('');
+      this.$("input").val('');
       this.showNotMatching();
       NotResults.refresh([]);
-      this.refreshCount();
+      App.refreshCount();
       this.$("#clear-search").hide();
     },
 
     search: function(e) {
       if (e.keyCode != 13) return;
-      var tags = this.parseTags(this.$("#search input").val());
+      var tags = App.parseTags(this.$("input").val());
       var not_results = Bookmarks.reject(function(bk) { return bk.hasTags(tags); });
       NotResults.refresh(not_results);
-      this.refreshCount();
+      App.refreshCount();
       this.$("#clear-search").show();
+    },
+  });
+  window.Search = new SearchView;
+
+  window.AppView = Backbone.View.extend({
+    el: $("#bkmarks-app"),
+
+    events: {
+      "click #save-btn": "create",
+      "keypress #new_title": "createOnEnter",
+      "keypress #new_url": "createOnEnter",
+      "keypress #new_tags": "createOnEnter",
+      "click #show-create-bk": "showNewBkForm",
+      "click #hide-create-bk": "hideNewBkForm",
+    },
+
+    initialize: function() {
+      _.bindAll(this, 'render', 'addOne', 'addAll', 'clear');
+      this.title = this.$("#new_title");
+      this.url = this.$("#new_url");
+      this.tags = this.$("#new_tags");
+      Bookmarks.bind('add', this.addOne);
+      Bookmarks.bind('refresh', this.addAll);
+      Bookmarks.bind('remove', this.refreshCount);
+      Bookmarks.fetch();
     },
 
     showError: function(model, error) {
@@ -278,7 +290,6 @@ $(function() {
       this.clear();
       this.$("#create-bk").hide("slow");
     },
-
   });
   window.App = new AppView;
 });
