@@ -131,6 +131,10 @@ $(function() {
       if (e.keyCode != 13) return;
       this.saveEdit();
     },
+
+    remove: function() {
+      $(this.el).fadeOut('slow', function() { $(this.el).remove(); });
+    },
   });
 
 
