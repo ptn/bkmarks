@@ -91,7 +91,7 @@ $(function() {
     },
 
     highlight: function() {
-      $(this.el).effect("highlight", {}, 1500);
+      $(this.el).effect("highlight", { color: "#caeeea" }, 1500);
     },
 
     showControls: function() {
@@ -137,8 +137,10 @@ $(function() {
         url: this.editUrl.val(),
         tags: tags,
       }, { error: this.showError });
-      if (res)
+      if (res) {
         this.cancelEdit();
+        this.highlight();
+      }
     },
 
     showError: function(model, error) {
