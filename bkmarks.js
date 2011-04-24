@@ -111,15 +111,26 @@ $(function() {
       this.remove();
     },
 
-    startEdit: function() {
-      this.editTitle = this.$(".edit_title");
-      this.editUrl = this.$(".edit_url");
-      this.editTags = this.$(".edit_tags");
+    centerEditForm: function() {
+      $('html,body').animate({
+        scrollTop: '+=' + this.$('.edit').offset().top + 'px'
+      }, 'slow');
+    },
+
+    configureEditForm: function() {
       $(this.el).addClass("editing");
+      this.centerEditForm();
       this.editTitle.val(this.model.get("title"));
       this.editUrl.val(this.model.get("url"));
       this.editTags.val(this.model.tagsAsString());
       this.editTitle.focus();
+    },
+
+    startEdit: function() {
+      this.editTitle = this.$(".edit_title");
+      this.editUrl = this.$(".edit_url");
+      this.editTags = this.$(".edit_tags");
+      this.configureEditForm();
     },
 
     edit: function() {
