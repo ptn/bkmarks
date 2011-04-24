@@ -271,6 +271,7 @@ $(function() {
       if (Bookmarks.length == 0) {
         this.startCreate();
       }
+      return this;
     },
 
     showError: function(model, error) {
