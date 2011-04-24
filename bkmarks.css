@@ -48,10 +48,11 @@ body {
 .tags {
   font-size: 0.8em;
   line-height: 0.8em;
+  padding-bottom: 5px;
+  margin-top: 5px;
 }
 
 .bk {
-  line-height: 2em;
   padding: 5px;
 }
 
@@ -63,6 +64,10 @@ body {
   display: none;
   background-color: #fcf0e7;
   padding: 8px;
+}
+
+.saved {
+  text-align: center;
 }
 
 .editing .saved {
@@ -113,7 +118,7 @@ body {
   list-style-type: square;
 }
 
-.controls {
+.saved .controls {
   display: none;
   float: right;
   cursor: pointer;

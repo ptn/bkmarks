@@ -59,21 +59,27 @@
     <script type="text/template" id="bk-template">
       <div class="bk">
 
-        <div class="saved">
+        <table class="saved" width="100%">
+          <tr>
+            <td width="20%">
+            </td>
 
-          <div class="bk-link">
+            <td width="60%">
+              <div class="bk-link">
+                <a href="<%= url %>"><%= title %></a>
+              </div>
 
-            <a href="<%= url %>"><%= title %></a><br />
-          </div>
+              <div class="tags"><%= tags %></div>
+            </td>
 
-          <span class="controls">
-            <span class="edit-img"><img src="img/edit.png"/></span>
-            <span class="destroy-img"><img src="img/destroy.png"/></span>
-          </span>
-
-          <div class="tags"><%= tags %></div>
-
-        </div>
+            <td width="20%">
+              <div class="controls">
+                <span class="edit-img"><img src="img/edit.png"/></span>
+                <span class="destroy-img"><img src="img/destroy.png"/></span>
+              </div>
+            </td>
+          </tr>
+        </table>
 
         <div class="edit">
 
