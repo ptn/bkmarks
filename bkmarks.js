@@ -98,6 +98,10 @@ $(function() {
       return this;
     },
 
+    highlight: function() {
+      $(this.el).effect("highlight", {}, 1500);
+    },
+
     showControls: function() {
       this.$(".controls").show();
     },
@@ -142,7 +146,7 @@ $(function() {
         tags: tags,
       }, { error: this.showError });
       if (res)
-        $(this.el).removeClass("editing");
+        this.cancelEdit();
     },
 
     showError: function(model, error) {
