@@ -257,8 +257,16 @@ $(function() {
       this.tags = this.$("#new_tags");
       Bookmarks.bind('add', this.addOne);
       Bookmarks.bind('refresh', this.addAll);
-      Bookmarks.bind('remove', this.refreshCount);
+      Bookmarks.bind('remove', this.render);
+      Bookmarks.bind('all', this.render);
       Bookmarks.fetch();
+    },
+
+    render: function() {
+      this.refreshCount();
+      if (Bookmarks.length == 0) {
+        this.startCreate();
+      }
     },
 
     showError: function(model, error) {
