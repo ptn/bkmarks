@@ -82,6 +82,7 @@ $(function() {
       "click .edit-btn": "saveEdit",
       "click .cancel": "stopEdit",
       "keypress": "editOnEnter",
+      "keyup": "cancelEditOnEscape",
     },
 
     initialize: function() {
@@ -138,6 +139,11 @@ $(function() {
 
     stopEdit: function() {
       $(this.el).removeClass("editing");
+    },
+
+    cancelEditOnEscape: function(e) {
+      if (e.keyCode != 27) return;
+      this.stopEdit();
     },
 
     editOnEnter: function(e) {
@@ -226,6 +232,7 @@ $(function() {
     events: {
       "click #save-btn": "create",
       "keypress": "createOnEnter",
+      "keyup": "cancelCreateOnEscape",
       "click #show-create-bk": "showNewBkForm",
       "click #hide-create-bk": "hideNewBkForm",
     },
@@ -246,6 +253,11 @@ $(function() {
       $("#error").addClass("error");
       $("#error").show();
       $("#error").fadeOut(5000);
+    },
+
+    cancelCreateOnEscape: function(e) {
+      if (e.keyCode != 27) return;
+      this.hideNewBkForm();
     },
 
     createOnEnter: function(e) {
