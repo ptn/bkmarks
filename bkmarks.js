@@ -166,7 +166,7 @@ $(function() {
 
     events: {
       "keypress": "searchOnEnter",
-      "keyup": "delayedSearch",
+      "keyup": "clearOrDelayedSearch",
       "click #clear-search": "clearSearch",
     },
 
@@ -203,16 +203,21 @@ $(function() {
       this.search();
     },
 
-    delayedSearch: function(e) {
-      var input = this.$("input");
-      var search = this.search;
-      var clearSearch = this.clearSearch;
-      Util.delay(function() {
-        if (input.val())
-          search();
-        else
-          clearSearch();
-      }, 500);
+    clearOrDelayedSearch: function(e) {
+      if (e.keyCode == 27) {
+        this.clearSearch();
+        this.$("input").blur();
+      } else {
+        var input = this.$("input");
+        var search = this.search;
+        var clearSearch = this.clearSearch;
+        Util.delay(function() {
+          if (input.val())
+            search();
+          else
+            clearSearch();
+        }, 500);
+      }
     },
   });
   window.Search = new SearchView;
