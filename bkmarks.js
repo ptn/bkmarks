@@ -13,14 +13,6 @@ $(function() {
     })(),
   };
 
-  window.Tag = Backbone.Model.extend();
-
-  window.TagList = Backbone.Collection.extend({
-    model: Tag,
-    localStorage: new Store("tags"),
-  });
-
-
   window.Bookmark = Backbone.Model.extend({
     initialize: function() {
       _.bindAll(this, 'hasTag', 'hasTags');
