@@ -1,18 +1,4 @@
 $(function() {
-  String.prototype.getHostname = function() {
-    var url_regex = new RegExp('^((?:f|ht)tp(?:s)?\://)?([^/]+)', 'im');
-      var url_match = this.match(url_regex);
-    if (url_match) {
-      var hostname = url_match[2].toString();
-      var subdomain_match = hostname.match(/^(.+)\.((.+)\.(.+))$/);
-      if (subdomain_match) {
-        hostname = subdomain_match[2];
-      }
-      return hostname;
-    } else
-      return "";
-  };
-
   window.Util = {
     parseTags: function(tags_input) {
       return _.uniq(tags_input.trim().split(/,?\s+/));
@@ -39,10 +25,8 @@ $(function() {
     initialize: function() {
       _.bindAll(this, 'hasTag', 'hasTags');
       if (this.isNew() && this.get("url")) {
-        this.setHostname();
         this.addProtocolToUrl();
       }
-      this.bind('change:url', this.setHostname);
       this.bind('change:url', this.addProtocolToUrl);
     },
 
@@ -64,11 +48,6 @@ $(function() {
         this.set({url: "http://" + this.get("url")});
       }
     },
-
-        setHostname: function() {
-          var host = this.get("url").getHostname();
-          var ret = this.set({hostname: host});
-        },
 
         validate: function(attrs) {
           if (!(typeof attrs.title === 'undefined') && attrs.title == "") {

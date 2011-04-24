@@ -60,13 +60,19 @@
       <div class="bk">
 
         <div class="saved">
-          <div class="controls">
-            <span class="edit-img"><img src="img/edit.png"/></span>
-            <span class="destroy-img"><img src="img/destroy.png"/></span>
+
+          <div class="bk-link">
+
+            <a href="<%= url %>"><%= title %></a><br />
           </div>
 
-          <a href="<%= url %>"><%= title %></a><span class="quiet"> (<%= hostname %>)</span>
+          <span class="controls">
+            <span class="edit-img"><img src="img/edit.png"/></span>
+            <span class="destroy-img"><img src="img/destroy.png"/></span>
+          </span>
+
           <div class="tags"><%= tags %></div>
+
         </div>
 
         <div class="edit">
