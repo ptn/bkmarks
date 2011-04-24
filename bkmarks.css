@@ -66,14 +66,6 @@ body {
   text-align: center;
 }
 
-.editing .saved {
-  display: none;
-}
-
-.editing .edit {
-  display: block;
-}
-
 .error {
   margin-bottom: 8px;
   text-align: center;

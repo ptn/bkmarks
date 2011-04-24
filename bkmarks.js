@@ -118,7 +118,8 @@ $(function() {
     },
 
     configureEditForm: function() {
-      $(this.el).addClass("editing");
+      this.$(".saved").hide();
+      this.$(".edit").show("slow");
       this.centerEditForm();
       this.editTitle.val(this.model.get("title"));
       this.editUrl.val(this.model.get("url"));
@@ -149,7 +150,8 @@ $(function() {
     },
 
     cancelEdit: function() {
-      $(this.el).removeClass("editing");
+      this.$(".edit").hide();
+      this.$(".saved").show("fast");
     },
 
     cancelEditOnEscape: function(e) {
@@ -163,7 +165,7 @@ $(function() {
     },
 
     remove: function() {
-      $(this.el).fadeOut('slow', function() { $(this.el).remove(); });
+      $(this.el).fadeOut('fast', function() { $(this.el).remove(); });
     },
 
     hide: function() {
@@ -290,7 +292,6 @@ $(function() {
         tags: tags,
       }, {error: this.showError});
       if (res) {
-        this.clear();
         this.cancelCreate();
       }
     },
@@ -316,8 +317,8 @@ $(function() {
     },
 
     cancelCreate: function() {
+      this.$("#create-bk").hide("fast");
       this.clear();
-      this.$("#create-bk").hide("slow");
     },
   });
   window.App = new AppView;
