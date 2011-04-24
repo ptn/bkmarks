@@ -79,8 +79,8 @@ $(function() {
       "mouseout": "hideControls",
       "click .destroy-img": "destroy",
       "click .edit-img": "startEdit",
-      "click .edit-btn": "saveEdit",
-      "click .cancel": "stopEdit",
+      "click .edit-btn": "edit",
+      "click .cancel-edit": "cancelEdit",
       "keypress": "editOnEnter",
       "keyup": "cancelEditOnEscape",
     },
@@ -122,7 +122,7 @@ $(function() {
       this.editTitle.focus();
     },
 
-    saveEdit: function() {
+    edit: function() {
       var tags = Util.parseTags(this.editTags.val());
       var res = this.model.save({
         title: this.editTitle.val(),
@@ -137,18 +137,18 @@ $(function() {
       alert(error);
     },
 
-    stopEdit: function() {
+    cancelEdit: function() {
       $(this.el).removeClass("editing");
     },
 
     cancelEditOnEscape: function(e) {
       if (e.keyCode != 27) return;
-      this.stopEdit();
+      this.cancelEdit();
     },
 
     editOnEnter: function(e) {
       if (e.keyCode != 13) return;
-      this.saveEdit();
+      this.edit();
     },
 
     remove: function() {
@@ -233,8 +233,8 @@ $(function() {
       "click #save-btn": "create",
       "keypress": "createOnEnter",
       "keyup": "cancelCreateOnEscape",
-      "click #show-create-bk": "showNewBkForm",
-      "click #hide-create-bk": "hideNewBkForm",
+      "click #start-create": "startCreate",
+      "click #cancel-create": "cancelCreate",
     },
 
     initialize: function() {
@@ -257,7 +257,7 @@ $(function() {
 
     cancelCreateOnEscape: function(e) {
       if (e.keyCode != 27) return;
-      this.hideNewBkForm();
+      this.cancelCreate();
     },
 
     createOnEnter: function(e) {
@@ -280,7 +280,7 @@ $(function() {
       }, {error: this.showError});
       if (res) {
         this.clear();
-        this.hideNewBkForm();
+        this.cancelCreate();
       }
     },
 
@@ -299,12 +299,12 @@ $(function() {
       $("#bk-count").text("Showing " + showing + " / " + Bookmarks.length);
     },
 
-    showNewBkForm: function() {
+    startCreate: function() {
       this.$("#create-bk").show("slow");
       this.$("#new_title").focus();
     },
 
-    hideNewBkForm: function() {
+    cancelCreate: function() {
       this.clear();
       this.$("#create-bk").hide("slow");
     },
