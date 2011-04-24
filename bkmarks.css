@@ -12,13 +12,9 @@ body {
   background-color: #de8848;
   color: black;
   text-align: center;
-  width: 57%;
+  width: 63%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.edit-btn {
-  line-height: 1em;
 }
 
 #save-btn:hover, .edit-btn:hover {
@@ -147,6 +143,6 @@ li {
   padding: 8px;
 }
 
-#create-bk input {
+#create-bk input, .edit input {
   margin-bottom: 15px;
 }
