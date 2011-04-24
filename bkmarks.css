@@ -121,6 +121,9 @@ body {
 .saved .controls {
   display: none;
   float: right;
+}
+
+.saved .controls .edit-img, .saved .controls .destroy-img {
   cursor: pointer;
 }
 
