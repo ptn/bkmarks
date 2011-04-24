@@ -81,9 +81,7 @@ $(function() {
       "click .edit-img": "startEdit",
       "click .edit-btn": "saveEdit",
       "click .cancel": "stopEdit",
-      "keypress .edit_title": "editOnEnter",
-      "keypress .edit_url": "editOnEnter",
-      "keypress .edit_tags": "editOnEnter",
+      "keypress": "editOnEnter",
     },
 
     initialize: function() {
@@ -227,9 +225,7 @@ $(function() {
 
     events: {
       "click #save-btn": "create",
-      "keypress #new_title": "createOnEnter",
-      "keypress #new_url": "createOnEnter",
-      "keypress #new_tags": "createOnEnter",
+      "keypress": "createOnEnter",
       "click #show-create-bk": "showNewBkForm",
       "click #hide-create-bk": "hideNewBkForm",
     },
