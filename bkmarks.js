@@ -15,7 +15,7 @@ $(function() {
 
   window.Util = {
     parseTags: function(tags_input) {
-      return _.uniq(tags_input.split(/,?\s+/));
+      return _.uniq(tags_input.trim().split(/,?\s+/));
     },
 
     delay: (function() {
