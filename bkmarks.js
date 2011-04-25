@@ -265,7 +265,8 @@ $(function() {
         }
       });
       App.refreshCount();
-      this.$("#clear-search").show();
+      if (NotResultsIndexes.length > 0)
+        this.$("#clear-search").show();
     },
 
     searchOnEnter: function(e) {
