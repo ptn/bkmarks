@@ -7,3 +7,4 @@ Next steps:
 * Better display of error messages
 * Refactor
 * Connect to MongoDB
+* Display bookmarks grouped by the date they were saved
