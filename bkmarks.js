@@ -143,6 +143,10 @@ $(function() {
       var json = this.model.toJSON();
       json.tags = this.model.tagsAsString();
       $(this.el).html(this.template(json));
+      if (this.model.tagsAsString() == "") {
+        this.$(".tags").text("no tags");
+        this.$(".tags").addClass("quiet");
+      }
       return this;
     },
 
