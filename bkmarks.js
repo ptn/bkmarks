@@ -88,7 +88,7 @@ $(function() {
     },
   });
   window.Bookmarks = new BookmarkList;
-  window.NotResults = new BookmarkList;
+  window.NotResultsIndexes = new Array();
 
 
   window.BookmarkView = Backbone.View.extend({
@@ -221,24 +221,23 @@ $(function() {
 
     clearSearch: function() {
       this.$("input").val('');
-      NotResults.each(function(bk) { bk.view.show(); });
-      NotResults.refresh([]);
+      _.each(NotResultsIndexes, function(idx) { Bookmarks.at(idx).view.show(); });
+      NotResultsIndexes.length = 0;
       App.refreshCount();
       this.$("#clear-search").hide();
     },
 
     search: function() {
       var results = Bookmarks.search(this.$("input").val());
-      var notResults = [];
-      Bookmarks.each(function(bk) {
+      NotResultsIndexes.length = 0;
+      Bookmarks.each(function(bk, idx) {
         if (_.include(results, bk))
           bk.view.show();
         else {
           bk.view.hide();
-          notResults.push(bk);
+          NotResultsIndexes.push(idx);
         }
       });
-      NotResults.refresh(notResults);
       App.refreshCount();
       this.$("#clear-search").show();
     },
@@ -289,6 +288,7 @@ $(function() {
       Bookmarks.bind('all', this.render);
       Bookmarks.fetch();
       this.highlightNextAdd = false;
+      this.notResultsIndexes = [];
     },
 
     render: function() {
@@ -350,7 +350,7 @@ $(function() {
     },
 
     refreshCount: function() {
-      var showing = Bookmarks.length - NotResults.length;
+      var showing = Bookmarks.length - NotResultsIndexes.length;
       $("#bk-count").text("Showing " + showing + " / " + Bookmarks.length);
     },
 
