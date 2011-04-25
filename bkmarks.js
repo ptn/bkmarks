@@ -258,6 +258,7 @@ $(function() {
       Bookmarks.bind('remove', this.render);
       Bookmarks.bind('all', this.render);
       Bookmarks.fetch();
+      this.highlightNextAdd = false;
     },
 
     render: function() {
@@ -292,12 +293,13 @@ $(function() {
     },
 
     create: function() {
+      this.highlightNextAdd = true;
       var tags = Util.parseTags(this.tags.val());
       var res = Bookmarks.create({
         title: this.title.val(),
         url: this.url.val(),
         tags: tags,
-      }, {error: this.showError});
+      }, { error: this.showError });
       if (res) {
         this.cancelCreate();
       }
@@ -307,6 +309,10 @@ $(function() {
       var view = new BookmarkView({model: bk});
       this.$("#bk-list").append(view.render().el);
       this.refreshCount();
+      if (this.highlightNextAdd) {
+        view.highlight();
+        this.highlightNextAdd = false;
+      }
     },
 
     addAll: function() {
