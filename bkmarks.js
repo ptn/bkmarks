@@ -31,6 +31,15 @@ $(function() {
       return _.all(tags, this.hasTag);
     },
 
+    // Ugly hack - I'm learning BackboneJS, not string searching algorithms
+    // (but boy was I tempted).
+    titleContains: function(words) {
+      var regex = _.reduce(words, function(re, word) {
+        return re + "(" + word + ").*?";
+      }, "");
+      return this.get("title").search(new RegExp(regex, "i")) != -1;
+    },
+
     tagsAsString: function() {
       return this.get("tags").join(", ");
     },
@@ -54,10 +63,31 @@ $(function() {
 
   window.BookmarkList = Backbone.Collection.extend({
     model: Bookmark,
-    localStorage: new Store("bks")
+
+    localStorage: new Store("bks"),
+
+    searchByTag: function(keywords) {
+      var tags = Util.parseTags(keywords);
+      return this.select(function(bk) { return bk.hasTags(tags); });
+    },
+
+    searchByTitle: function(keywords) {
+      var words = keywords.split(/\s+/);
+      return this.select(function(bk) { return bk.titleContains(words); });
+    },
+
+    searchByUrl: function(keywords) {
+      return [];
+    },
+
+    search: function(keywords) {
+      var tagsResults = this.searchByTag(keywords);
+      var titleResults = this.searchByTitle(keywords);
+      var urlResults = this.searchByUrl(keywords);
+      return tagsResults.concat(titleResults, urlResults);
+    },
   });
   window.Bookmarks = new BookmarkList;
-  // Bookmarks that don't match the search terms.
   window.NotResults = new BookmarkList;
 
 
@@ -198,17 +228,17 @@ $(function() {
     },
 
     search: function() {
-      var tags = Util.parseTags(this.$("input").val());
-      var not_results = Bookmarks.select(function(bk) {
-        if (bk.hasTags(tags)) {
+      var results = Bookmarks.search(this.$("input").val());
+      var notResults = [];
+      Bookmarks.each(function(bk) {
+        if (_.include(results, bk))
           bk.view.show();
-          return false;
-        } else {
+        else {
           bk.view.hide();
-          return true;
+          notResults.push(bk);
         }
       });
-      NotResults.refresh(not_results);
+      NotResults.refresh(notResults);
       App.refreshCount();
       this.$("#clear-search").show();
     },
