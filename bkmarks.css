@@ -49,7 +49,8 @@ body {
 }
 
 .bk {
-  padding: 5px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .bk:hover {
@@ -122,10 +123,6 @@ body {
 ul {
   list-style-type: none;
   padding-left: 0;
-}
-
-li {
-  margin-bottom: 20px;
 }
 
 #create-bk {
